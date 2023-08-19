@@ -13,11 +13,12 @@ const Section = ({ title, items, togglePop }) => {
             <div className='cards'>
                 {items.map((item, index) => (
                     <div className='card' key={index} onClick={() => togglePop(item)}>
+                        <h4>{item.name}</h4>
                         <div className='card__image'>
                             <img src={item.image} alt="Item" />
                         </div>
                         <div className='card__info'>
-                            <h4>{item.name}</h4>
+                            {/* <h4>{item.name}</h4> */}
                             <Rating value={item.rating} />
                             <p>{ethers.utils.formatUnits(item.cost.toString(), 'ether')} ETH</p>
                         </div>

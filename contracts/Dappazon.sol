@@ -26,6 +26,7 @@ contract Dappazon {
     event Buy(address buyer, uint256 orderId, uint256 itemId);
     event List(string name, uint256 cost, uint256 quantity);
 
+    //custom modifier
     modifier onlyOwner() {
         require(msg.sender == owner);
         _;
@@ -44,7 +45,7 @@ contract Dappazon {
         uint256 _rating,
         uint256 _stock
     ) public onlyOwner {
-        // Create Item
+        // Create Item Struct
         Item memory item = Item(
             _id,
             _name,
@@ -55,10 +56,10 @@ contract Dappazon {
             _stock
         );
 
-        // Add Item to mapping
+        // Add Item to mapping; save items struct to blockchain
         items[_id] = item;
 
-        // Emit event
+        // Emit on event
         emit List(_name, _cost, _stock);
     }
 
@@ -86,6 +87,7 @@ contract Dappazon {
         emit Buy(msg.sender, orderCount[msg.sender], item.id);
     }
 
+    //withdraw funds
     function withdraw() public onlyOwner {
         (bool success, ) = owner.call{value: address(this).balance}("");
         require(success);
